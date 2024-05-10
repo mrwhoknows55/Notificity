@@ -13,4 +13,7 @@ interface NotificationDao {
 
     @Query("SELECT * FROM notificationentity ORDER BY timestamp DESC")
     fun getAllNotifications(): LiveData<List<NotificationEntity>>
+
+    @Query("SELECT * FROM notificationentity ORDER BY timestamp DESC LIMIT :limit OFFSET :offset")
+    suspend fun getNotifications(limit: Int, offset: Int): List<NotificationEntity>
 }

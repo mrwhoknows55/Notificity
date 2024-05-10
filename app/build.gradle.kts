@@ -2,8 +2,7 @@ plugins {
     kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id("org.jetbrains.kotlin.plugin.serialization").version("1.8.0")
 }
 
 android {
@@ -43,6 +42,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.0"
     }
+    packaging {
+        resources.excludes += "META-INF/*"
+    }
 }
 
 dependencies {
@@ -79,10 +81,13 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     //Firebase Dependencies
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-crashlytics")
 
+
+    val ktorVersion = "2.3.11"
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     // Testing
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0")
